@@ -64,26 +64,21 @@ class HttpAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.5,
-                json={
-                    "id": json.dumps(id, cls=utility.PommermanJSONEncoder),
-                    "game_type": json.dumps(game_type, cls=utility.PommermanJSONEncoder)
-                })
+                data=json.dumps({
+                    "id": id,
+                    "game_type": game_type
+                }))
+            pass
         except requests.exceptions.Timeout as e:
             print('Timeout in init_agent()!')
 
     def act(self, obs, action_space):
-        obs_serialized = json.dumps(obs, cls=utility.PommermanJSONEncoder)
         request_url = "http://{}:{}/action".format(self._host, self._port)
         try:
             req = requests.post(
                 request_url,
                 timeout=0.15,
-                json={
-                    "obs":
-                    obs_serialized,
-                    "action_space":
-                    json.dumps(action_space, cls=utility.PommermanJSONEncoder)
-                })
+                data=json.dumps({"obs": obs, "action_space": action_space}, cls=utility.PommermanJSONEncoder))
             action = req.json()['action']
         except requests.exceptions.Timeout as e:
             print('Timeout!')
@@ -101,9 +96,9 @@ class HttpAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.5,
-                json={
-                    "reward": json.dumps(reward, cls=utility.PommermanJSONEncoder)
-                })
+                json=json.dumps({
+                    "reward": reward
+                }))
         except requests.exceptions.Timeout as e:
             print('Timeout in episode_end()!')
 
