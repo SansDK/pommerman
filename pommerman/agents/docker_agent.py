@@ -70,7 +70,7 @@ class DockerAgent(BaseAgent):
             self._docker_image,
             detach=True,
             auto_remove=True,
-            ports={10080: self._port},
+            ports={80: self._port},
             environment=self._env_vars)
         for line in self._container.logs(stream=True):
             print(line.decode("utf-8").strip())
@@ -117,7 +117,7 @@ class DockerAgent(BaseAgent):
                 timeout=0.5,
                 data=json.dumps({
                     "id": id,
-                    "game_type": game_type
+                    "game_type": game_type.value
                 }))
         except requests.exceptions.Timeout as e:
             print('Timeout in init_agent()!')
