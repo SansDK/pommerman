@@ -221,7 +221,7 @@ class PommeViewer(Viewer):
         self.display = rendering.get_display(display)
         board_height = constants.TILE_SIZE * board_size
         height = math.ceil(board_height + (constants.BORDER_SIZE * 2) +
-                           (constants.MARGIN_SIZE * 3))
+                           (constants.MARGIN_SIZE * 3)) + constants.LOGO_SIZE
         width = math.ceil(board_height + board_height / 4 +
                           (constants.BORDER_SIZE * 2) + constants.MARGIN_SIZE)
 
@@ -229,7 +229,7 @@ class PommeViewer(Viewer):
         self._width = width
         self.window = pyglet.window.Window(
             width=width, height=height, display=display)
-        self.window.set_caption('Pommerman')
+        self.window.set_caption('Bombersauce')
         self.isopen = True
         self._board_size = board_size
         self._resource_manager = ResourceManager(game_type)
@@ -257,6 +257,9 @@ class PommeViewer(Viewer):
         agents = self.render_dead_alive()
         board = self.render_main_board()
         agents_board = self.render_agents_board()
+        #ground = self.render_background()
+        title_figure = self.render_title_figure()
+        logo = self.render_logo()
 
         self._batch.draw()
         self.window.flip()
@@ -324,19 +327,31 @@ class PommeViewer(Viewer):
 
     def render_background(self):
         image_pattern = pyglet.image.SolidColorImagePattern(
-            color=constants.BACKGROUND_COLOR)
+           color=constants.BACKGROUND_COLOR)
         image = image_pattern.create_image(self._width, self._height)
+        # #background_value = self._resource_manager.backgound_value
+        # image = self._resource_manager.get_background()
+        # #image = pyglet.image.load('')
         return pyglet.sprite.Sprite(
             image, 0, 0, batch=self._batch, group=LAYER_BACKGROUND)
+
+    def render_logo(self):
+        image = self._resource_manager.get_logo()
+        x = constants.BORDER_SIZE
+        y = 5
+        image.height = constants.LOGO_SIZE * 1.35
+        image.width = 119 * 1.35 #voor nu even met de hand uitgerekend
+        return pyglet.sprite.Sprite(
+            image, x, y, batch=self._batch, group=LAYER_FOREGROUND)
 
     def render_text(self):
         text = []
         board_top = self.board_top(y_offset=8)
         title_label = pyglet.text.Label(
-            'Pommerman',
-            font_name='Cousine-Regular',
+            'Bombersauce',
+            font_name='Arial',
             font_size=36,
-            x=constants.BORDER_SIZE,
+            x=constants.BORDER_SIZE + constants.PIJLTJES_SIZE,
             y=board_top,
             batch=self._batch,
             group=LAYER_TOP)
@@ -354,13 +369,24 @@ class PommeViewer(Viewer):
             info_text,
             font_name='Arial',
             font_size=10,
-            x=constants.BORDER_SIZE,
+            x=self._width - constants.BORDER_SIZE - 330, #text size ca 330
             y=5,
             batch=self._batch,
             group=LAYER_TOP)
         time_label.color = constants.TEXT_COLOR
         text.append(time_label)
         return text
+
+    def render_title_figure(self):
+        board_top = self.board_top(y_offset=5)
+        image_size = constants.PIJLTJES_SIZE
+        x = constants.BORDER_SIZE
+        y = board_top
+        title_image = self._resource_manager.get_title_figure()
+        title_image.width = image_size
+        title_image.height = image_size
+        return pyglet.sprite.Sprite(
+            title_image, x, y, batch=self._batch, group=LAYER_FOREGROUND)
 
     def render_dead_alive(self):
         board_top = self.board_top(y_offset=5)
@@ -406,7 +432,7 @@ class PommeViewer(Viewer):
 
     def board_top(self, y_offset=0):
         return constants.BORDER_SIZE + (
-            self._board_size * self._tile_size) + y_offset
+            self._board_size * self._tile_size) + y_offset + constants.LOGO_SIZE
 
     def board_right(self, x_offset=0):
         return constants.BORDER_SIZE + (
@@ -428,6 +454,7 @@ class ResourceManager(object):
         self.bombs = self._load_bombs()
         self._fog_value = self._get_fog_index_value()
         self._is_team = True
+        self._background_value = self._get_background_index_value()
 
         if game_type == constants.GameType.FFA or game_type == constants.GameType.OneVsOne:
             self._is_team = False
@@ -471,6 +498,12 @@ class ResourceManager(object):
             if data['name'] == 'Fog':
                 return id
 
+    @staticmethod
+    def _get_background_index_value():
+        for id, data in constants.IMAGES_DICT.items():
+            if data['name'] == 'Background':
+                return id
+
     def tile_from_state_value(self, value):
         if self._is_team and value in range(10, 14):
             return self.images[value + 10]['image']
@@ -495,3 +528,15 @@ class ResourceManager(object):
 
     def get_bomb_tile(self, life):
         return self.bombs[life - 1]['image']
+
+    def get_background(self):
+        img = self.images[20]#[self._backgound_value]
+        return img['image']
+
+    def get_title_figure(self):
+        img = self.images[21]
+        return img['image']
+
+    def get_logo(self):
+        img = self.images[22]
+        return img['image']

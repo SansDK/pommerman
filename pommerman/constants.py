@@ -33,10 +33,10 @@ RADIO_NUM_WORDS = 2
 # Files for images and and fonts
 RESOURCE_DIR = 'resources/'
 FILE_NAMES = [
-    'Passage', 'Rigid', 'Wood', 'Bomb', 'Flames', 'Fog', 'ExtraBomb',
-    'IncrRange', 'Kick', 'AgentDummy', 'Agent0', 'Agent1', 'Agent2', 'Agent3',
+    'Passage3', 'Rigid1', 'Wood', 'Bomb', 'Flames', 'Fog', 'ExtraBomb',
+    'IncrRange', 'Kick', 'AgentDummy', 'Agent0', 'Agent1', 'Agent2', 'Agent3', 'Pijltjes_IS',
     'AgentDummy-No-Background', 'Agent0-No-Background', 'Agent1-No-Background',
-    'Agent2-No-Background', 'Agent3-No-Background', 'X-No-Background',
+    'Agent2-No-Background', 'Agent3-No-Background', 'Background2', 'pijltjes', 'IS_logo', 'X-No-Background',
     'Agent0-Team', 'Agent1-Team', 'Agent2-Team', 'Agent3-Team',
     'Agent0-Team-No-Background', 'Agent1-Team-No-Background', 
     'Agent2-Team-No-Background', 'Agent3-Team-No-Background',
@@ -67,9 +67,11 @@ FONTS_FILE_NAMES = ['Cousine-Regular.ttf']
 BORDER_SIZE = 20
 MARGIN_SIZE = 10
 TILE_SIZE = 50
-BACKGROUND_COLOR = (41, 39, 51, 255)
-TILE_COLOR = (248, 221, 82, 255)
-TEXT_COLOR = (170, 170, 170, 255)
+PIJLTJES_SIZE = 45
+LOGO_SIZE = 50
+BACKGROUND_COLOR = (255, 255, 255, 255)
+TILE_COLOR = (19, 53, 97, 255) #(255, 255, 255, 255)
+TEXT_COLOR = (0, 127, 195, 255)  #wit (170, 170, 170, 255)
 
 
 class Item(Enum):
@@ -97,6 +99,8 @@ class Item(Enum):
     Agent1 = 11
     Agent2 = 12
     Agent3 = 13
+    Background = 20
+    Title = 14
 
 
 class GameType(Enum):
