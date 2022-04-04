@@ -22,8 +22,8 @@ import time
 import argparse
 import numpy as np
 
-from .. import helpers
-from .. import make
+from pommerman import helpers
+from pommerman import make
 from pommerman import utility
 
 
