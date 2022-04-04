@@ -70,7 +70,7 @@ class DockerAgent(BaseAgent):
             self._docker_image,
             detach=True,
             auto_remove=True,
-            ports={80: self._port},
+            ports={5000: self._port},
             environment=self._env_vars)
         for line in self._container.logs(stream=True):
             print(line.decode("utf-8").strip())
@@ -128,6 +128,7 @@ class DockerAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.15,
+                headers={"Content-type": "application/json"},
                 data=json.dumps({"obs": obs, "action_space": action_space}, cls=utility.PommermanJSONEncoder))
             action = req.json()['action']
         except requests.exceptions.Timeout as e:
