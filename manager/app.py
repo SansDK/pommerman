@@ -170,7 +170,7 @@ def run_container():
         docker_image,
         detach=True,
         auto_remove=True,
-        ports={10080: port},
+        ports={5000: port},
         environment=env_vars)
     for line in container.logs(stream=True):
         print(line.decode("utf-8").strip())

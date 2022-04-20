@@ -7,7 +7,7 @@ ADD . /pommerman
 RUN cd /pommerman && pip install .
 # end @TODO
 
-EXPOSE 10080
+EXPOSE 5000
 
 ENV NAME Agent
 

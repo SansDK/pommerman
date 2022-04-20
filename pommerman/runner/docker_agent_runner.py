@@ -20,7 +20,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
         """Given an observation, returns the action the agent should"""
         raise NotImplementedError()
 
-    def run(self, host="0.0.0.0", port=10080):
+    def run(self, host="0.0.0.0", port=5000):
         """Runs the agent by creating a webserver that handles action requests."""
         app = Flask(self.__class__.__name__)
 
