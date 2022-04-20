@@ -15,7 +15,8 @@ def main():
     agent_list = [
         agents.SimpleAgent(),
         agents.RandomAgent(),
-        agents.SimpleAgent(),
+        #agents.SimpleAgent(),
+        agents.DockerAgent("io.swagger", port=5001),
         agents.DockerAgent("python-docker-agent", port=5000),
         #agents.RandomAgent(),
         # agents.DockerAgent("pommerman/simple-agent", port=12345),

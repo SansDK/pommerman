@@ -29,7 +29,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
             '''handles an action over http'''
             data = request.get_json()
             observation = data.get("obs")
-            observation = json.loads(observation)
+            observation = json.loads(json.dumps(observation))
 
             observation['teammate'] = constants.Item(observation['teammate'])
             for enemy_id in range(len(observation['enemies'])):
@@ -40,7 +40,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
             observation['bomb_blast_strength'] = np.array(observation['bomb_blast_strength'], dtype=np.float64)
 
             action_space = data.get("action_space")
-            action_space = json.loads(action_space)
+            action_space = json.loads(json.dumps(action_space))
             action = self.act(observation, action_space)
             return jsonify({"action": action})
 
@@ -49,7 +49,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
             '''initiates agent over http'''
             data = request.get_json()
             id = data.get("id")
-            id = json.loads(id)
+            id = json.loads(json.dumps(id))
             game_type = data.get("game_type")
             game_type = constants.GameType(json.loads(game_type))
             self.init_agent(id, game_type)
@@ -66,7 +66,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
             '''Info about end of a game'''
             data = request.get_json()
             reward = data.get("reward")
-            reward = json.loads(reward)
+            reward = json.loads(json.dumps(reward))
             self.episode_end(reward)
             return jsonify(success=True)
 
