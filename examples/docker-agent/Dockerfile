@@ -2,10 +2,8 @@ FROM python:3.6
 
 ADD ./examples/docker-agent /agent
 
-# @TODO to be replaced with `pip install pommerman`
 ADD . /pommerman
 RUN cd /pommerman && pip install .
-# end @TODO
 
 EXPOSE 5000
 

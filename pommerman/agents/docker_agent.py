@@ -5,6 +5,7 @@ import os
 import threading
 import requests
 import docker
+from docker.types import Mount
 
 from . import BaseAgent
 from .. import utility
@@ -71,7 +72,8 @@ class DockerAgent(BaseAgent):
             detach=True,
             auto_remove=True,
             ports={5000: self._port},
-            environment=self._env_vars)
+            environment=self._env_vars,
+            mounts=[Mount("/data", "C:\\temp\\bombersauce\\" + self._docker_image, type="bind")])
         for line in self._container.logs(stream=True):
             print(line.decode("utf-8").strip())
 
