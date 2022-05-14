@@ -1,4 +1,4 @@
-'''An example to show how to set up an pommerman game programmatically'''
+'''An example to show how to set up a Bombersauce game programmatically'''
 import pommerman
 from pommerman import agents
 
@@ -15,16 +15,13 @@ def main():
     agent_list = [
         agents.SimpleAgent(),
         agents.RandomAgent(),
-        #agents.SimpleAgent(),
         agents.DockerAgent("io.swagger", port=5001),
         agents.DockerAgent("python-docker-agent", port=5000),
-        #agents.RandomAgent(),
-        # agents.DockerAgent("pommerman/simple-agent", port=12345),
     ]
     # Make the "Free-For-All" environment using the agent list
     env = pommerman.make('PommeFFACompetition-v0', agent_list)
 
-    # Run the episodes just like OpenAI Gym
+    # Run the episodes
     for i_episode in range(1):
         state = env.reset()
         done = False
