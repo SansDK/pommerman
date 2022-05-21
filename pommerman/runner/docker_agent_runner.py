@@ -48,10 +48,9 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
         def init_agent(): #pylint: disable=W0612
             '''initiates agent over http'''
             data = request.get_json()
-            id = data.get("id")
-            id = json.loads(json.dumps(id))
-            game_type = data.get("game_type")
-            game_type = constants.GameType(json.loads(game_type))
+            id = data["id"]
+            game_type = data["game_type"]
+            game_type = constants.GameType(game_type)
             self.init_agent(id, game_type)
             return jsonify(success=True)
 
@@ -65,8 +64,7 @@ class DockerAgentRunner(metaclass=abc.ABCMeta):
         def episode_end(): #pylint: disable=W0612
             '''Info about end of a game'''
             data = request.get_json()
-            reward = data.get("reward")
-            reward = json.loads(json.dumps(reward))
+            reward = data["reward"]
             self.episode_end(reward)
             return jsonify(success=True)
 

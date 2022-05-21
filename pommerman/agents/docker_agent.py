@@ -117,6 +117,7 @@ class DockerAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.5,
+                headers={"Content-type": "application/json"},
                 data=json.dumps({
                     "id": id,
                     "game_type": game_type.value
@@ -149,7 +150,8 @@ class DockerAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.5,
-                json=json.dumps({
+                headers={"Content-type": "application/json"},
+                data=json.dumps({
                     "reward": reward
                 }))
         except requests.exceptions.Timeout as e:
@@ -161,6 +163,7 @@ class DockerAgent(BaseAgent):
             req = requests.post(
                 request_url,
                 timeout=0.5,
+                headers={"Content-type": "application/json"},
                 json={ })
         except requests.exceptions.Timeout as e:
             print('Timeout in shutdown()!')
