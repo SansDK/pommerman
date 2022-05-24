@@ -69,7 +69,6 @@ Each agent sees:
   * Enemies: A list of three Ints, each in [9, 13]. Which agents are this agent's enemies. There are three here to be amenable to all variants of the game. When there are only two enemies like in the team competitions, the last Int will be the AgentDummy to reflect the fact that there are only two enemies.
   * Bomb Blast Strength: An 11x11 numpy int array representing the bombs' blast strengths in the agent's view. Everything outside of its view will be fogged out.
   * Bomb Life: An 11x11 numpy int array representing the bombs' life in the agent's view. Everything outside of its view will be fogged out.
-  * Message: (Team Radio only) A list of two Ints, each in [0, 8]. The message being relayed from the teammate. Both ints are zero when a teammate is dead or it's the first step. Otherwise they are in [1, 8].
 
 
 ![Pommerman-enviroment Output](./assets/pom_env_output.png) *This is the output from env.step()*  
@@ -84,7 +83,6 @@ Each agent sees:
     * Left (3): Move left on the board.
     * Right (4): Move right on the board.
     * Bomb (5): Lay a bomb.
-  * Message: (Team Radio only) A list of two Ints in [1, 8]. These represent the message. 
         
 
 ## Parameters

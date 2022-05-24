@@ -2,13 +2,23 @@
 ## Pre-requisites
 * [Python 3.6.0](https://www.python.org/downloads/release/python-360/)+ (including `pip`)
 * [Docker](https://www.docker.com/) (needed for `DockerAgent`)
-* [virtualenv](https://virtualenv.pypa.io/en/stable/) (optional, for isolated Python environment)
+
 ## Installation
 * Clone the repository
 ```
 $ git clone https://dev.azure.com/corpinfosupportdev/_git/Pommerman
 ```
-* Open the repository and build the module
+* **OPTIONAL**: Setup an isolated virtual Python environment by running the following commands
+```
+$ python3 -m venv ./venv
+```
+This environment needs to be activated for usage. Any package installations will now persist
+in this virtual environment folder only. (For linux, replace `Scripts` with `bin`). 
+```
+$ ./venv/Scripts/activate
+```
+* Install the `pommerman` package. This needs to be done every time the code is updated to get the
+latest modules
 ```
 pip install .
 ```
@@ -24,10 +34,9 @@ The above example can be extended to use **DockerAgent** instead of a **RandomAg
 $ docker build -t pommerman/simple-agent -f examples/docker-agent/Dockerfile .
 ```
 
-* The agent list seen in the previous example can now be updated. Note that a `port` argument (of an unoccupied port) is
+* The agent list used in simple_ffa_run.py can now be updated. Note that a `port` argument (of an unoccupied port) is
 needed to expose the HTTP server.
 ```python
-#!/usr/bin/python
 agent_list = [
     agents.SimpleAgent(),
     agents.RandomAgent(),
@@ -35,9 +44,10 @@ agent_list = [
     agents.DockerAgent("pommerman/simple-agent", port=12345)
 ]
 ```
+You should now be able to run the game with the example docker agent, using simple_ffa_run.py. 
 
 ## Running your own agent
-1. Implement your own agent that can observe the environment and respond with its next action. Make sure this agent runs inside a docker container. Examples are available in C# (clone the PommermanDotNet Repository) and python (examples/docker-agent). 
+1. Implement your own agent that can observe the environment and respond with its next action. Make sure this agent runs inside a docker container. Examples are available in C# (clone the [PommermanDotNet Repository](https://dev.azure.com/corpinfosupportdev/Pommerman/_git/PommermanAgentDotNet)) and python (examples/docker-agent). 
 2. Build the docker image
 3. Run the game with your own docker agent. In simple_ffa_run.py, replace one or multiple of the agents with your docker agent: 
 ```
@@ -57,34 +67,5 @@ agent_list = [
 ]
 ```
 
-
-
-
-
-## Pip
-* **OPTIONAL**: Setup an isolated virtual Python environment by running the following commands
-```
-$ virtualenv ~/venv
-```
-This environment needs to be activated for usage. Any package installations will now persist
-in this virtual environment folder only.
-```
-source ~/venv/bin/activate
-```
-* Install the `pommerman` package. This needs to be done every time the code is updated to get the
-latest modules
-```
-$ cd ~/playground
-$ pip install -U .
-```
-## Conda
-* Install the `pommerman` environment.
-```
-$ cd ~/playground
-$ conda env create -f env.yml
-$ conda activate pommerman
-```
-* To update the environment
-```
-$ conda env update -f env.yml --prune
-```
+## CLI
+You can also run pommerman using the CLI. See [CLI](CLI.md) for more information and examples.

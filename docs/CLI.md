@@ -9,11 +9,11 @@ pom_battle --agents=test::agents.SimpleAgent,test::agents.SimpleAgent,test::agen
 ```
 An example with one player, two random agents, and one test agent:
 ```bash
-pom_battle --agents=player::arrows,test::agents.SimpleAgent,random::null,random::null --config=PommeFFACompetition-v0
+pom_battle --agents=player::arrows,test::agents.SimpleAgent,random::null,random::null --config=PommeFFACompetition-v0 --render
 ```
 An example with a docker agent:
 ```bash
-pom_battle --agents=player::arrows,docker::pommerman/test-agent,random::null,random::null --config=PommeFFACompetition-v0
+pom_battle --agents=player::arrows,docker::pommerman/simple-agent,random::null,random::null --config=PommeFFACompetition-v0
 ```
 ![pom_battle Output](./assets/pom_battle_1.png)*Output of the 1st example*  
 ## Configurations and Options
@@ -44,9 +44,4 @@ To get a list of active options you can run `pom_battle --help`. The current lis
     * `step_count`: Step count
 
 ![pom_battle Help](./assets/pom_battle_2.png)*Output of help from pom_battle*
-## Training an agent using Tensorforce
-Pommerman comes with a trainable agent out of the box. The agent uses a Proximal Policy Optimization (PPO) algorithm. This agent is a good place to start if you want to train your own agent. All of the options that are available in the CLI tool are available in the Tensorforce CLI.    
-An example with all three simple agents running FFA:
-```bash
-pom_tf_battle --agents=tensorforce::ppo,test::agents.SimpleAgent,test::agents.SimpleAgent,test::agents.SimpleAgent --config=PommeFFACompetition-v0
-```
+ 
