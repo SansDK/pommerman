@@ -1,18 +1,17 @@
 # Pommerman
 ![Pommerman](./assets/logo.png)
 ## Introduction
-We are machine learning researchers exploring how to train agents that can operate in environments with other learning agents, both cooperatively and adversarially. Whether you are a student or a well-oiled machine, we want you to help us advance the state of the art by building agents.
+Pommerman is originally made by machine learning researchers to explore learning in a multi agent environment. Now, this same game is used to introduce you all to the world of AI. Whether this is your first AI project, or you are already more experienced, Pommerman will be fun to play with and experiment with AI. 
 
-## How do I get help ?
-Join our Discord chat and check out the Github, which has all the instructions and details for training an agent in the environment and then submitting it to compete on [competitions](competitions.md).  
+## Goal
+During this hackaton, you are gonna make your own, automated, bomberman agent. This agent observes the board of the game, including bombs and other players. Based on those observations it should choose its next action. The goal is, of course, to become the longest surviving agent. 
 
-* [GitHub](https://github.com/MultiAgentLearning/playground)  
-* [Discord](https://discord.gg/wjVJEDc)  
-  
+Eventually, the agent should run in a docker container to be able to battle against the other agents. The documentation will get you stated. It contains:
+* [Environment](environment.md): A description of the code, the game and the observations and actions of the agent
+* [Competition](competitions.md): Game rules and instructions
+* [Research](research.md): Research Papers based on pommerman
+
 ## What's in the docs ?  
 * [Getting Started](getting_started.md)  
 * [Command Line Interface](CLI.md)  
-* [Multiplayer](multiplayer.md)  
-* [Competitions](competitions.md)  
-* [Environment Reference](environment.md)  
-* [Research Topics](research.md)  
+
