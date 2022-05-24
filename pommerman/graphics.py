@@ -25,7 +25,8 @@ try:
     from pyglet.gl import *
     LAYER_BACKGROUND = pyglet.graphics.OrderedGroup(0)
     LAYER_FOREGROUND = pyglet.graphics.OrderedGroup(1)
-    LAYER_TOP = pyglet.graphics.OrderedGroup(2)
+    LAYER_FOREFOREGROUND = pyglet.graphics.OrderedGroup(2)
+    LAYER_TOP = pyglet.graphics.OrderedGroup(3)
 except pyglet.canvas.xlib.NoSuchDisplayException as error:
     print("Import error NSDE! You will not be able to render --> %s" % error)
 except ImportError as error:
@@ -256,6 +257,7 @@ class PommeViewer(Viewer):
         text = self.render_text()
         agents = self.render_dead_alive()
         board = self.render_main_board()
+        #bombs = self.render_main_board_bombs()
         agents_board = self.render_agents_board()
         #ground = self.render_background()
         title_figure = self.render_title_figure()
@@ -272,6 +274,15 @@ class PommeViewer(Viewer):
         top = self.board_top(-constants.BORDER_SIZE - 8)
         return self.render_board(board, x_offset, y_offset, size, top)
 
+    def render_main_board_bombs(self):
+        board = self._board_state
+        size = self._tile_size
+        x_offset = constants.BORDER_SIZE
+        y_offset = constants.BORDER_SIZE
+        top = self.board_top(-constants.BORDER_SIZE - 8)
+        return self.render_bombs(board, x_offset, y_offset, size, top)
+
+
     def render_agents_board(self):
         x_offset = self._board_size * self._tile_size + constants.BORDER_SIZE
         x_offset += constants.MARGIN_SIZE
@@ -287,6 +298,26 @@ class PommeViewer(Viewer):
             agents.append(sprite)
         return agents
 
+    # def render_board(self, board, x_offset, y_offset, size, top=0):
+    #     sprites = []
+    #     for row in range(self._board_size):
+    #         for col in range(self._board_size):
+    #             x = col * size + x_offset
+    #             y = top - y_offset - row * size
+    #             tile_state = board[row][col]
+    #             if tile_state == constants.Item.Bomb.value:
+    #                 #bomb_life = self.get_bomb_life(row, col)
+    #                 #tile = self._resource_manager.get_bomb_tile(bomb_life)
+    #                 tile = self._resource_manager.tile_from_state_value(0)
+    #             else:
+    #                 tile = self._resource_manager.tile_from_state_value(tile_state)
+    #             tile.width = size
+    #             tile.height = size
+    #             sprite = pyglet.sprite.Sprite(
+    #                 tile, x, y, batch=self._batch, group=LAYER_FOREGROUND)
+    #             sprites.append(sprite)
+    #     return sprites
+
     def render_board(self, board, x_offset, y_offset, size, top=0):
         sprites = []
         for row in range(self._board_size):
@@ -294,9 +325,27 @@ class PommeViewer(Viewer):
                 x = col * size + x_offset
                 y = top - y_offset - row * size
                 tile_state = board[row][col]
+
                 if tile_state == constants.Item.Bomb.value:
+                    tile = self._resource_manager.tile_from_state_value(0)
+
                     bomb_life = self.get_bomb_life(row, col)
-                    tile = self._resource_manager.get_bomb_tile(bomb_life)
+                    bomb_tile = self._resource_manager.get_bomb_tile(bomb_life)
+                    bomb_tile.width = size
+                    bomb_tile.height = size
+                    sprite = pyglet.sprite.Sprite(
+                        bomb_tile, x, y, batch=self._batch, group=LAYER_FOREFOREGROUND)
+                    sprites.append(sprite)
+                    
+                elif tile_state in (4,6,7,8,9,10,11,12,13):
+                    tile = self._resource_manager.tile_from_state_value(0)
+                    top_tile = self._resource_manager.tile_from_state_value(tile_state)
+                    top_tile.width = size
+                    top_tile.height = size
+                    sprite = pyglet.sprite.Sprite(
+                        top_tile, x, y, batch=self._batch, group=LAYER_FOREFOREGROUND)
+                    sprites.append(sprite)
+                  
                 else:
                     tile = self._resource_manager.tile_from_state_value(tile_state)
                 tile.width = size
@@ -306,7 +355,10 @@ class PommeViewer(Viewer):
                 sprites.append(sprite)
         return sprites
 
+
     def agent_view(self, agent):
+        # dit moeten we aanpassen zodat het het poppetje + de naam toont voor elke agent
+        
         if not self._is_partially_observable:
             return self._board_state
 
