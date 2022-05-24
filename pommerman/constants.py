@@ -4,7 +4,7 @@ This includes not just ints but also classes like Item, GameType, Action, etc.
 """
 from enum import Enum
 
-RENDER_FPS = 0.5
+RENDER_FPS = 5
 BOARD_SIZE = 11
 NUM_RIGID = 36
 NUM_WOOD = 36

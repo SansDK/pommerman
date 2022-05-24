@@ -257,9 +257,7 @@ class PommeViewer(Viewer):
         text = self.render_text()
         agents = self.render_dead_alive()
         board = self.render_main_board()
-        #bombs = self.render_main_board_bombs()
         agents_board = self.render_agents_board()
-        #ground = self.render_background()
         title_figure = self.render_title_figure()
         logo = self.render_logo()
 
@@ -273,15 +271,6 @@ class PommeViewer(Viewer):
         y_offset = constants.BORDER_SIZE
         top = self.board_top(-constants.BORDER_SIZE - 8)
         return self.render_board(board, x_offset, y_offset, size, top)
-
-    def render_main_board_bombs(self):
-        board = self._board_state
-        size = self._tile_size
-        x_offset = constants.BORDER_SIZE
-        y_offset = constants.BORDER_SIZE
-        top = self.board_top(-constants.BORDER_SIZE - 8)
-        return self.render_bombs(board, x_offset, y_offset, size, top)
-
 
     def render_agents_board(self):
         x_offset = self._board_size * self._tile_size + constants.BORDER_SIZE
@@ -297,26 +286,6 @@ class PommeViewer(Viewer):
                                        top)
             agents.append(sprite)
         return agents
-
-    # def render_board(self, board, x_offset, y_offset, size, top=0):
-    #     sprites = []
-    #     for row in range(self._board_size):
-    #         for col in range(self._board_size):
-    #             x = col * size + x_offset
-    #             y = top - y_offset - row * size
-    #             tile_state = board[row][col]
-    #             if tile_state == constants.Item.Bomb.value:
-    #                 #bomb_life = self.get_bomb_life(row, col)
-    #                 #tile = self._resource_manager.get_bomb_tile(bomb_life)
-    #                 tile = self._resource_manager.tile_from_state_value(0)
-    #             else:
-    #                 tile = self._resource_manager.tile_from_state_value(tile_state)
-    #             tile.width = size
-    #             tile.height = size
-    #             sprite = pyglet.sprite.Sprite(
-    #                 tile, x, y, batch=self._batch, group=LAYER_FOREGROUND)
-    #             sprites.append(sprite)
-    #     return sprites
 
     def render_board(self, board, x_offset, y_offset, size, top=0):
         sprites = []
@@ -381,9 +350,6 @@ class PommeViewer(Viewer):
         image_pattern = pyglet.image.SolidColorImagePattern(
            color=constants.BACKGROUND_COLOR)
         image = image_pattern.create_image(self._width, self._height)
-        # #background_value = self._resource_manager.backgound_value
-        # image = self._resource_manager.get_background()
-        # #image = pyglet.image.load('')
         return pyglet.sprite.Sprite(
             image, 0, 0, batch=self._batch, group=LAYER_BACKGROUND)
 
@@ -582,7 +548,7 @@ class ResourceManager(object):
         return self.bombs[life - 1]['image']
 
     def get_background(self):
-        img = self.images[20]#[self._backgound_value]
+        img = self.images[20]
         return img['image']
 
     def get_title_figure(self):
