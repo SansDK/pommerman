@@ -4,7 +4,7 @@ This includes not just ints but also classes like Item, GameType, Action, etc.
 """
 from enum import Enum
 
-RENDER_FPS = 15
+RENDER_FPS = 5
 BOARD_SIZE = 11
 NUM_RIGID = 36
 NUM_WOOD = 36
@@ -33,8 +33,9 @@ RADIO_NUM_WORDS = 2
 # Files for images and and fonts
 RESOURCE_DIR = 'resources/'
 FILE_NAMES = [
-    'Passage3', 'Rigid1', 'Wood', 'Bomb', 'Flames', 'Fog', 'ExtraBomb',
-    'IncrRange', 'Kick', 'AgentDummy', 'Agent0', 'Agent1', 'Agent2', 'Agent3', 'Pijltjes_IS',
+    'Passage4', 'Rigid3', 'Wood', 'Bomb2', 'Flames2', 'Fog', 'ExtraBomb2',
+    'Increase2', 'Kick2', 'AgentDummy', 'Agent0-No-Background', 'Agent1-No-Background',
+    'Agent2-No-Background', 'Agent3-No-Background', 'Pijltjes_IS',
     'AgentDummy-No-Background', 'Agent0-No-Background', 'Agent1-No-Background',
     'Agent2-No-Background', 'Agent3-No-Background', 'Background2', 'pijltjes', 'IS_logo', 'X-No-Background',
     'Agent0-Team', 'Agent1-Team', 'Agent2-Team', 'Agent3-Team',
@@ -50,8 +51,8 @@ IMAGES_DICT = {
     } for num, file_name in enumerate(FILE_NAMES)
 }
 BOMB_FILE_NAMES = [
-    'Bomb-1', 'Bomb-2', 'Bomb-3', 'Bomb-4', 'Bomb-5', 'Bomb-6',
-    'Bomb-7', 'Bomb-8', 'Bomb-9', 'Bomb-10',
+    'Bomb-12', 'Bomb-22', 'Bomb-32', 'Bomb-42', 'Bomb-52', 'Bomb-62',
+    'Bomb-72', 'Bomb-82', 'Bomb-92', 'Bomb-102',
 ]
 BOMB_DICT = {
     num: {
@@ -70,8 +71,8 @@ TILE_SIZE = 50
 PIJLTJES_SIZE = 45
 LOGO_SIZE = 50
 BACKGROUND_COLOR = (255, 255, 255, 255)
-TILE_COLOR = (19, 53, 97, 255) #(255, 255, 255, 255)
-TEXT_COLOR = (0, 127, 195, 255)  #wit (170, 170, 170, 255)
+TILE_COLOR = (0,56,101,255) 
+TEXT_COLOR = (110,207,246,255)
 
 
 class Item(Enum):
