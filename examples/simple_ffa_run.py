@@ -13,10 +13,13 @@ def main():
 
     # Create a set of agents (exactly four)
     agent_list = [
-        # agents.SimpleAgent(),
+        # Top left
+        agents.SimpleAgent(),
+        # Top right
         agents.RandomAgent(),
-        agents.RandomAgent(),
+        # Bottom right
         agents.DockerAgent("my-bombersauce-agent-in-aspnetcore", port=5000),
+        # Bottom left
         agents.DockerAgent("python-docker-agent", port=5001)
     ]
     # Make the "Free-For-All" environment using the agent list
