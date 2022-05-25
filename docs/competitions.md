@@ -1,11 +1,14 @@
 # Competition
 ## Submitting an Agent
+Deze instructies voor het uploaden van je agent zijn nog in ontwikkeling! Verdere details volgen. 
+
 Agents should be submitted in our Docker registry: 
 1. Install Azure CLI
 2. `az login`. Let op: als het goed is logt dit in op de Info Support Corporate Development tenant.
 3. `az acr login --name acrcicdpommweu001`
 4. `docker login`
 
+Verdere instructies TBA!
 
 ## Rules and Submission
 

@@ -6,11 +6,10 @@ Pommerman is originally made by machine learning researchers to explore learning
 ## Goal
 During this hackaton, you are gonna make your own, automated, bomberman agent. This agent observes the board of the game, including bombs and other players. Based on those observations it should choose its next action. The goal is, of course, to become the longest surviving agent. 
 
-Eventually, the agent should run in a docker container to be able to battle against the other agents. The documentation will get you stated. It contains:
+Eventually, the agent should run in a docker container to be able to battle against the other agents. The documentation will get you started. It contains:
+* [Docker](docker.md): Some notes on running your agent in a Docker container
 * [Environment](environment.md): A description of the code, the game and the observations and actions of the agent
 * [Getting Started](getting_started.md)  
 * [Command Line Interface](CLI.md)  
 * [Competition](competitions.md): Game rules and instructions
 * [Research](research.md): Research Papers based on pommerman
-
-
