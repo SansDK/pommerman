@@ -6,8 +6,7 @@ and then report back the result.
 
 An example with all three simple agents running ffa:
 python train_with_tensorforce.py \
- --agents=tensorforce::ppo,test::agents.SimpleAgent,test::agents.SimpleAgent,test::agents.SimpleAgent \
- --config=PommeFFACompetition-v0
+ --agents=tensorforce::ppo,test::agents.SimpleAgent,test::agents.SimpleAgent,test::agents.SimpleAgent --config=PommeFFACompetition-v0
 """
 import atexit
 import functools
@@ -16,12 +15,12 @@ import os
 import argparse
 import docker
 from tensorforce.execution import Runner
-from tensorforce.contrib.openai_gym import OpenAIGym
+from tensorforce.environments import OpenAIGym
 import gym
 
 from pommerman import helpers, make
 from pommerman.agents import TensorForceAgent
-
+from pommerman.agents import TwAIgerAgent
 
 CLIENT = docker.from_env()
 
@@ -110,6 +109,7 @@ def main():
     agent_env_vars = args.agent_env_vars
     game_state_file = args.game_state_file
 
+    print()
     # TODO: After https://github.com/MultiAgentLearning/playground/pull/40
     #       this is still missing the docker_env_dict parsing for the agents.
     agents = [
@@ -119,9 +119,9 @@ def main():
 
     env = make(config, agents, game_state_file)
     training_agent = None
-
+    print(agents)
     for agent in agents:
-        if type(agent) == TensorForceAgent:
+        if type(agent) == TwAIgerAgent:
             training_agent = agent
             env.set_training_agent(agent.agent_id)
             break
@@ -133,6 +133,7 @@ def main():
         assert not os.path.isdir(args.record_json_dir)
         os.makedirs(args.record_json_dir)
 
+    print(training_agent)
     # Create a Proximal Policy Optimization agent
     agent = training_agent.initialize(env)
 

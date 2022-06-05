@@ -3,6 +3,7 @@ A Work-In-Progress agent using Tensorforce
 """
 from . import BaseAgent
 from .. import characters
+from tensorforce.agents import Agent
 
 
 class TensorForceAgent(BaseAgent):
@@ -18,7 +19,6 @@ class TensorForceAgent(BaseAgent):
 
     def initialize(self, env):
         from gym import spaces
-        from tensorforce.agents import PPOAgent
 
         if self.algorithm == "ppo":
             if type(env.action_space) == spaces.Tuple:
@@ -32,14 +32,16 @@ class TensorForceAgent(BaseAgent):
             else:
                 actions = dict(type='int', num_actions=env.action_space.n)
 
-            return PPOAgent(
-                states=dict(type='float', shape=env.observation_space.shape),
-                actions=actions,
+            return Agent.create(
+                agent = 'ppo',
                 network=[
                     dict(type='dense', size=64),
                     dict(type='dense', size=64)
                 ],
                 batching_capacity=1000,
-                step_optimizer=dict(type='adam', learning_rate=1e-4))
+                step_optimizer=dict(type='adam', learning_rate=1e-4),
+                environment = env,
+                max_episode_timesteps=500,
+                batch_size=10)
         return None
 

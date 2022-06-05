@@ -1,6 +1,7 @@
 ''' Helpers'''
 import os
 from .. import agents
+from ..twAIger_agent.agent import TwAIgerAgent
 
 USE_GAME_SERVERS = os.getenv("PLAYGROUND_USE_GAME_SERVERS")
 GAME_SERVERS = {id_: os.getenv("PLAYGROUND_GAME_INSTANCE_%d" % id_)
@@ -13,7 +14,7 @@ def make_agent_from_string(agent_string, agent_id, docker_env_dict=None):
     
     agent_type, agent_control = agent_string.split("::")
 
-    assert agent_type in ["player", "playerblock", "simple", "random", "docker", "http" , "test", "tensorforce"]
+    assert agent_type in ["twAIger", "player", "playerblock", "simple", "random", "docker", "http" , "test", "tensorforce"]
 
     agent_instance = None
 
@@ -41,5 +42,7 @@ def make_agent_from_string(agent_string, agent_id, docker_env_dict=None):
         agent_instance = eval(agent_control)()
     elif agent_type == "tensorforce":
         agent_instance = agents.TensorForceAgent(algorithm=agent_control)
+    elif agent_type == "twAIger":
+        agent_instance = agents.TwAIgerAgent()
 
     return agent_instance

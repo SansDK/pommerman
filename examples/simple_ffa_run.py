@@ -19,7 +19,8 @@ def main():
         agents.RandomAgent(),
         # Bottom right
         # agents.SimpleAgent(),
-        agents.DockerAgent("twaiger-agent", port=5000),
+        # agents.DockerAgent("twaiger-agent", port=5000),
+        agents.PlayerAgent(agent_control="arrows"),
         # Bottom left
         # agents.SimpleAgent(),
         agents.DockerAgent("python-docker-agent", port=5001)
