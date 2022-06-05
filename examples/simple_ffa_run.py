@@ -18,12 +18,17 @@ def main():
         # Top right
         agents.RandomAgent(),
         # Bottom right
-        agents.DockerAgent("my-bombersauce-agent-in-aspnetcore", port=5000),
+        # agents.SimpleAgent(),
+        agents.DockerAgent("twaiger-agent", port=5000),
         # Bottom left
+        # agents.SimpleAgent(),
         agents.DockerAgent("python-docker-agent", port=5001)
     ]
     # Make the "Free-For-All" environment using the agent list
     env = pommerman.make('PommeFFACompetition-v0', agent_list)
+
+    print('states: {}'.format(env.observation_space.shape[0]))
+    print('actions: {}'.format(env.action_space.n))
 
     # Run the episodes
     for i_episode in range(1):

@@ -42,3 +42,4 @@ class TensorForceAgent(BaseAgent):
                 batching_capacity=1000,
                 step_optimizer=dict(type='adam', learning_rate=1e-4))
         return None
+
