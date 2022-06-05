@@ -6,6 +6,7 @@ from pommerman.agents import BaseAgent
 import pommerman.characters as characters
 import pommerman.constants as constants
 import gym
+from gym import spaces
 import random
 from tensorforce.agents import Agent
 
@@ -21,10 +22,23 @@ class TwAIgerAgent(BaseAgent):
     def initialize(self, env):
         env = gym.make('PommeFFACompetition-v0')
         states = dict(type='float', shape=env.observation_space.shape)
-        actions = dict(type='int', num_actions=env.action_space.n)
+        print("STATES:", states)
+        if type(env.action_space) == spaces.Tuple:
+            actions = {
+                str(num): {
+                    'type': int,
+                    'num_values': space.n
+                }
+                for num, space in enumerate(env.action_space.spaces)
+            }
+        else:
+            actions = dict(type='int', num_values=env.action_space.n)
         return Agent.create(
-            agent='dqn', environment=env, batch_size=10, learning_rate=1e-3,
-            states=states, actions=actions
+            agent='ppo',
+            states=states,
+            actions=actions,
+            batch_size=1000,
+            max_episode_timesteps=10
         )
 
     def __init__(self, character=characters.Bomber, algorithm='ppo'):
@@ -34,7 +48,7 @@ class TwAIgerAgent(BaseAgent):
     def create_model(self, model):
         env = gym.make('PommeFFACompetition-v0')
         agent = Agent.create(
-            agent='dqn', environment=env, batch_size=10, learning_rate=1e-3
+            agent='ppo', environment=env, batch_size=10, learning_rate=1e-3
         )
 
         # model = Sequential()
